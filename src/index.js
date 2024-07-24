@@ -1,3 +1,4 @@
+import { Block } from "./block";
 import config from "./config";
 
 const canvas = document.querySelector('canvas');
@@ -10,7 +11,14 @@ canvas.height = config.HEIGHT * config.BLOCK_SIZE;
 let lastTime = 0;
 let accumulatedTime = 0;
 const targetFPS = 30;
-const interval = 1000 / targetFPS;
+const interval = 10000 / targetFPS;
+
+let currentBlock;
+const blocks = [];
+
+const addBlock = () => {
+  currentBlock = new Block({ shape: config.BLOCKS.L });
+}
 
 const createBoard = () => {
   for (let y = 0; y < config.WIDTH; y++) {
@@ -18,13 +26,15 @@ const createBoard = () => {
       board[x][y] = 0;
     }
   }
-  board[0][0] = 1;
 }
 
-createBoard()
+createBoard();
+addBlock();
 
 const update = () => {
-
+  if (currentBlock) {
+    currentBlock.update();
+  }
 }
 
 const draw = () => {
@@ -33,6 +43,10 @@ const draw = () => {
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   drawBoard();
+
+  if (currentBlock) {
+    currentBlock.draw(ctx);
+  }
 }
 
 const drawBoard = () => {
