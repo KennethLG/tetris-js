@@ -17,6 +17,7 @@ const update = () => {
   if (game.current) {
     game.current.update(game.board);
   }
+  game.update();
 }
 
 const draw = () => {

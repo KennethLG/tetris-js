@@ -39,6 +39,15 @@ export class Game {
     this.createBoard();
     this.setUpKeyboard();
     this.addBlock();
+    console.log(this.board)
+  }
+
+  update() {
+    const lineAt = this.isLineAt();
+    if (lineAt != -1) {
+      this.board.splice(lineAt, 1);
+      this.board.unshift(new Array(config.WIDTH).fill(0));
+    } 
   }
 
   addBlock() {
@@ -49,6 +58,17 @@ export class Game {
     this.blocks.push(this.current);
   }
   
+  isLineAt() {
+    for (let y = 0; y < this.board.length; y++) {
+      const row = this.board[y];
+      const line = row.every((val) => val === 1);
+      if (line) {
+        console.log(y);
+        return y;
+      }
+    }
+    return -1;
+  }
 
   createBoard() {
     for (let y = 0; y < config.WIDTH; y++) {
