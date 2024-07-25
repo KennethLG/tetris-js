@@ -1,5 +1,5 @@
 import config from "./config";
-import { isColliding, isOutside } from "./game";
+import { isColliding, isOutside, isOverBoard } from "./game";
 
 export class Block {
   constructor({ shape, game }) {
@@ -9,6 +9,9 @@ export class Block {
   }
 
   update(board) {
+    if (isOverBoard(this)) {
+      this.game.gameOver();
+    }
     this.move(0, 1, board);
   }
 
@@ -44,7 +47,13 @@ export class Block {
       this.position.x -= offsetX;
       this.position.y -= offsetY;
       this.placeOnBoard(board);
-      this.game.addBlock();
+
+      if (this.position.y === 0) {
+        this.game.gameOver();
+      } else {
+        this.game.addBlock();
+      }
+      // this.game.addBlock();
     }
   }
 

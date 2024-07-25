@@ -1,6 +1,14 @@
 import { Block } from "./block";
 import config from "./config";
 
+export const isOverBoard = (block) => {
+  const { position } = block;
+  if (position.y < 0) {
+    return true;
+  }
+  return false;
+}
+
 export const isOutside = (block) => {
   const { shape, position } = block;
 
@@ -76,6 +84,10 @@ export class Game {
         this.board[y][x] = 0;
       }
     }
+  }
+
+  gameOver() {
+    this.board = config.getIinitialBoard();
   }
 
   setUpKeyboard() {

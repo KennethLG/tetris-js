@@ -20,15 +20,20 @@ const BLOCKS = {
   ]
 };
 
+const COLORS = []
+
 const WIDTH = 10;
 const HEIGHT = 20;
 
-const INITIAL_BOARD = Array.from({ length: HEIGHT }, () => Array(WIDTH).fill(0));
+const getIinitialBoard = () => Array.from({ length: HEIGHT }, () => Array(WIDTH).fill(0))
+
+const INITIAL_BOARD = getIinitialBoard();
 
 export default {
   BLOCK_SIZE: 16,
   BLOCKS,
   INITIAL_BOARD,
   WIDTH,
-  HEIGHT
+  HEIGHT,
+  getIinitialBoard
 }
